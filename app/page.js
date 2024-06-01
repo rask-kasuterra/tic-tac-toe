@@ -43,7 +43,7 @@ export default function TicTacToe() {
   };
 
   return (
-    <>
+    <main className={styles.main}>
       <div className={styles.container}>
         {cells.map((cell, index) => (
           <div
@@ -58,7 +58,7 @@ export default function TicTacToe() {
       <div>
         <a href={homeUrl}>Go To Home</a>
       </div>
-    </>
+    </main>
   );
 };
 
