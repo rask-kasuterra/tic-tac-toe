@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.6",
+    "@babel/eslint-parser": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
+    "@babel/preset-react": "^7.24.6",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3"
   }
 }

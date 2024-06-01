@@ -1,74 +1,69 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <h1>◯✕ゲーム</h1>
+import React, { useState } from 'react';
 
-      <div class="tic-tac-toe">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-    </main>
-  );
-}
+export default function TicTacToe() {
+  const [cells, setCells] = useState(Array(9).fill(''));
+  const [currentPlayer, setCurrentPlayer] = useState('O');
+  const [isEnd, setIsEnd] = useState(false);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const cells = document.querySelectorAll('.cell');
-  let currentPlayer = 'O';
-  let isEnd = false;
+  const handleClick = (index) => {
+    if (cells[index] === '' && !isEnd) {
+      const newCells = [...cells];
+      newCells[index] = currentPlayer;
+      setCells(newCells);
 
-  cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-      if (cell.textContent === '') {
-        cell.textContent = currentPlayer;
-        console.log(cell.textContent);
-        isEnd = checkEnd(Array.from(cells), currentPlayer);
-        if (isEnd) {
-          alert(`Player ${currentPlayer} is winner.`);
-        }
-        currentPlayer = currentPlayer === 'O' ? 'X' : 'O';
+      if (checkEnd(newCells, currentPlayer)) {
+        setIsEnd(true);
+        alert(`Player ${currentPlayer} is winner.`);
+      } else {
+        setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
       }
-    });
-  });
-});
-
-// 勝利判定
-// 勝利条件となる3つの組み合わせを配列とし、その配列のいずれかの組み合わせを currentPlayer の記号で満たしていればそのプレイヤーが勝利。
-function checkEnd(cellArray, currentPlayer) {
-  console.log(`cellArray: ${cellArray}`);
-  const winnerConditions = [[0, 1, 2], [0, 4, 8], [0, 3, 6], [1, 4, 7], [2, 4, 6], [2, 5, 8], [3, 4, 5], [6, 7, 8]];
-  const indices = cellArray.reduce((indices, cell, index) => {
-    if (cell.textContent === currentPlayer) {
-      indices.push(index);
     }
-    return indices;
-  }, []);
+  };
 
-  return isContainedArray(indices, winnerConditions);
+  const checkEnd = (cells, player) => {
+    // 勝利条件をチェックするロジックを実装
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    return winningCombinations.some(combination =>
+      combination.every(index => cells[index] === player)
+    );
+  };
+
+  return (
+    <div className="tic-tac-toe">
+      {cells.map((cell, index) => (
+        <div
+          key={index}
+          className="cell"
+          onClick={() => handleClick(index)}
+          style={{
+            width: '60px',
+            height: '60px',
+            display: 'inline-block',
+            border: '1px solid black',
+            textAlign: 'center',
+            lineHeight: '60px',
+            fontSize: '24px',
+          }}
+        >
+          {cell}
+        </div>
+      ))}
+    </div>
+  );
 };
 
-// subArray のすべての要素に対して、array に含まれているか否かを確認している
-// return: boolean
-function containsSubArray(array, subArray) {
-  return subArray.every(element => array.includes(element))
-}
-
-// twoDimensionsArray のすべての配列に対して containsSubArray を実行し、一つでも true であれば true を返す
-// return: boolean
-function isContainedArray(array, twoDimensionsArray) {
-  console.log(`array: ${array}`);
-  console.log(`twoDimensionsArray: ${twoDimensionsArray}`);
-  return twoDimensionsArray.some(subArray => containsSubArray(array, subArray));
-}
 
 // TODO List
 
