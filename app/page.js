@@ -42,7 +42,7 @@ export default function TicTacToe() {
   };
 
   return (
-    <div className="tic-tac-toe">
+    <div className={styles.container}>
       {cells.map((cell, index) => (
         <div
           key={index}
