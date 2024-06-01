@@ -46,7 +46,7 @@ export default function TicTacToe() {
       {cells.map((cell, index) => (
         <div
           key={index}
-          className={styles.main}
+          className={styles.cell}
           onClick={() => handleClick(index)}
         >
           {cell}
