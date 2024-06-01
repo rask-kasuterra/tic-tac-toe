@@ -48,15 +48,7 @@ export default function TicTacToe() {
           key={index}
           className="cell"
           onClick={() => handleClick(index)}
-          style={{
-            width: '60px',
-            height: '60px',
-            display: 'inline-block',
-            border: '1px solid black',
-            textAlign: 'center',
-            lineHeight: '60px',
-            fontSize: '24px',
-          }}
+          style={styles.main}
         >
           {cell}
         </div>
