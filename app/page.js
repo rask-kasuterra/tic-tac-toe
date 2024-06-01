@@ -7,6 +7,7 @@ export default function TicTacToe() {
   const [cells, setCells] = useState(Array(9).fill(''));
   const [currentPlayer, setCurrentPlayer] = useState('O');
   const [isEnd, setIsEnd] = useState(false);
+  const homeUrl = process.env.HOME_URL;
 
   const handleClick = (index) => {
     if (cells[index] === '' && !isEnd) {
@@ -42,17 +43,22 @@ export default function TicTacToe() {
   };
 
   return (
-    <div className={styles.container}>
-      {cells.map((cell, index) => (
-        <div
-          key={index}
-          className={styles.cell}
-          onClick={() => handleClick(index)}
-        >
-          {cell}
-        </div>
-      ))}
-    </div>
+    <>
+      <div className={styles.container}>
+        {cells.map((cell, index) => (
+          <div
+            key={index}
+            className={styles.cell}
+            onClick={() => handleClick(index)}
+          >
+            {cell}
+          </div>
+        ))}
+      </div>
+      <div>
+        <a href={homeUrl}>Go To Home</a>
+      </div>
+    </>
   );
 };
 
